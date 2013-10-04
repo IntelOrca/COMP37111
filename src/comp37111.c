@@ -193,7 +193,7 @@ void render_hud()
 
 	sprintf(text, "FPS: %.1f", fps);
 	draw_string(GLUT_BITMAP_HELVETICA_18, 8, 8 + 18, text);
-	sprintf(text, "Particles: %d", particles_count());
+	sprintf(text, "Particles: %d", particles_count);
 	draw_string(GLUT_BITMAP_HELVETICA_18, 8, 8 + 18 + 2 + 18, text);
 	sprintf(text, "Emitters: %d", emitters_count());
 	draw_string(GLUT_BITMAP_HELVETICA_18, 8, 8 + 18 + 2 + 18 + 2 + 18, text);

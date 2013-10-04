@@ -20,6 +20,9 @@
 #define DISPLACEMENT_HISTORY_SIZE 8
 
 typedef struct s_Particle {
+	// Linked list
+	struct s_Particle *next;
+
 	// Static input
 	Emitter *emitter;
 	int reset_after_lifetime;
@@ -40,13 +43,13 @@ typedef struct s_Particle {
 } Particle;
 
 #define MAX_PARTICLES 2000000
-extern Particle *particles[MAX_PARTICLES];
+extern Particle *particles_head;
+extern int particles_count;
 
 void particles_clear();
 void particles_update();
 void particles_draw();
 void particles_add(Particle *p);
-int particles_count();
 Particle *particle_create();
 
 #endif

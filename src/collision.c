@@ -94,10 +94,11 @@ void collisionbox_updateparticle(CollisionBox *c, Particle *p)
 
 void collisionbox_update(CollisionBox *c)
 {
-	int i;
-	for (i = 0; i < MAX_PARTICLES; i++)
-		if (particles[i] != NULL)
-			collisionbox_updateparticle(c, particles[i]);
+	Particle *p = particles_head;
+	while (p != NULL) {
+		collisionbox_updateparticle(c, p);
+		p = p->next;
+	}
 }
 
 void collisionbox_draw(CollisionBox *c)

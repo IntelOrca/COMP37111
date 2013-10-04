@@ -4,6 +4,7 @@
  * Ted John 2013                      *
  **************************************/
 
+#include <assert.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -13,7 +14,9 @@
 #include "particle.h"
 #include "texture.h"
 
-Particle *particles[MAX_PARTICLES];
+Particle *particles_head = NULL;
+Particle *particles_last = NULL;
+int particles_count = 0;
 int optimise_particles_last_add = 0;
 
 void particle_dispose(Particle *p);
@@ -22,76 +25,83 @@ void particle_draw();
 
 void particles_clear()
 {
-	int i;
-	for (i = 0; i < MAX_PARTICLES; i++)
-		particles[i] = NULL;
+	Particle **p = &particles_head, *current;
+	while (*p != NULL) {
+		current = *p;
+		p = &((*p)->next);
+		particle_dispose(current);
+	}
+
+	particles_count = 0;
 }
 
 void particles_update()
 {
-	int i;
-	for (i = 0; i < MAX_PARTICLES; i++) {
-		Particle *p = particles[i];
-
-		if (p == NULL)
-			continue;
+	Particle **last_next = &particles_head, *p = *last_next, *tmp;
+	while (p != NULL) {
+		// Update the particle
 		particle_update(p);
+
+		// Check if it should be removed
 		if (p->time >= p->lifetime) {
 			if (p->reset_after_lifetime) {
 				p->time = 0;
 			} else {
-				particle_dispose(p);
-				particles[i] = NULL;
+				*last_next = p->next;
+				tmp = p;
+				p = p->next;
+
+				if (particles_last == tmp)
+					particles_last = NULL;
+
+				particle_dispose(tmp);
+				particles_count--;
+				continue;
 			}
 		}
+
+		last_next = &(p->next);
+		p = p->next;
 	}
 }
 
 void particles_draw()
 {
-	int i;
-	for (i = 0; i < MAX_PARTICLES; i++) {
-		if (particles[i] == NULL)
-			continue;
-		particle_draw(particles[i]);
+	if (particle_appearance != TEXTURE_NONE) {
+		Particle *p = particles_head;
+		while (p != NULL) {
+			particle_draw(p);
+			p = p->next;
+		}
 	}
 }
 
 void particles_add(Particle *p)
 {
-	int i;
-	for (i = optimise_particles_last_add; i < MAX_PARTICLES; i++) {
-		if (particles[i] == NULL) {
-			particles[i] = p;
-			optimise_particles_last_add = i;
-			return;
+	if (particles_last != NULL) {
+		assert(particles_last->next == NULL);
+		particles_last->next = p;
+	} else {
+		Particle **pp = &particles_head;
+		while (*pp != NULL) {
+			pp = &((*pp)->next);
 		}
+		*pp = p;
 	}
 
-	for (i = 0; i < optimise_particles_last_add; i++) {
-		if (particles[i] == NULL) {
-			particles[i] = p;
-			optimise_particles_last_add = i;
-			return;
-		}
-	}
-}
-
-int particles_count()
-{
-	int i, count = 0;
-	for (i = 0; i < MAX_PARTICLES; i++)
-		if (particles[i] != NULL)
-			count++;
-	return count;
+	particles_last = p;
+	particles_count++;
 }
 
 int emitters_count()
 {
-	int i, count = 0;
-	for (i = 0; i < MAX_PARTICLES; i++)
-		if (particles[i] != NULL && particles[i]->emitter != NULL)
+	int count = 0;
+	Particle *p = particles_head;
+	while (p != NULL) {
+		if (p->emitter != NULL)
 			count++;
+		p = p->next;
+	}
 	return count;
 }
 
@@ -143,9 +153,6 @@ void particle_update(Particle *p)
 void particle_draw(Particle *p)
 {
 	int i;
-
-	if (particle_appearance == TEXTURE_NONE)
-		return;
 
 	// Colour
 	glColor4d(
