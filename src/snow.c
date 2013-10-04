@@ -61,8 +61,6 @@ static void init()
 	Particle *p;
 	CollisionBox *c;
 
-	particles_clear();
-
 	p = particle_create();
 	snow_emitter = p;
 	p->acceleration.x = interpolation_create_2(

@@ -74,6 +74,7 @@
     <ClCompile Include="src\emitter.c" />
     <ClCompile Include="src\fireworks.c" />
     <ClCompile Include="src\fountain.c" />
+    <ClCompile Include="src\manyfountains.c" />
     <ClCompile Include="src\snow.c" />
     <ClCompile Include="src\helpers.c" />
     <ClCompile Include="src\interpolation.c" />

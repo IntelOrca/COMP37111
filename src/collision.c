@@ -12,14 +12,14 @@ CollisionBox *collisionboxes_head;
 
 void collisionboxes_clear()
 {
-	CollisionBox **c = &collisionboxes_head, *current;
-	while (*c != NULL) {
-		current = *c;
-		c = &((*c)->next);
+	CollisionBox *p = collisionboxes_head, *current;
+	while (p != NULL) {
+		current = p;
+		p = p->next;
 		collisionbox_dispose(current);
 	}
 
-	particles_count = 0;
+	collisionboxes_head = NULL;
 }
 
 void collisionboxes_update()

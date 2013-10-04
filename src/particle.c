@@ -25,13 +25,15 @@ void particle_draw();
 
 void particles_clear()
 {
-	Particle **p = &particles_head, *current;
-	while (*p != NULL) {
-		current = *p;
-		p = &((*p)->next);
+	Particle *p = particles_head, *current;
+	while (p != NULL) {
+		current = p;
+		p = p->next;
 		particle_dispose(current);
 	}
 
+	particles_head = NULL;
+	particles_last = NULL;
 	particles_count = 0;
 }
 

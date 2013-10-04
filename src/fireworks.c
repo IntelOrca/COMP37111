@@ -17,8 +17,6 @@ static void firework_exploision_emitter_update(Emitter *e);
 void system_fireworks()
 {
 	if (elapsed_ticks == 0) {
-		particles_clear();
-
 		// Firework emitter
 		firework_emitter = particle_create();
 		particles_add(firework_emitter);

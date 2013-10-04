@@ -38,8 +38,9 @@ void system_fountain();
 void system_spiral();
 void system_snow();
 void system_fireworks();
+void system_manyfountains();
 
-#define MAX_PARTICLE_SYSTEMS 4
+#define MAX_PARTICLE_SYSTEMS 5
 
 void project2d();
 void project3d();

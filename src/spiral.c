@@ -17,8 +17,6 @@ void spiral_emitter_update(Emitter *e);
 void system_spiral()
 {
 	if (elapsed_ticks == 0) {
-		particles_clear();
-
 		spiral_emitter = particle_create();
 		particles_add(spiral_emitter);
 

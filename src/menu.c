@@ -20,7 +20,7 @@ double size_factor = 1.0;
 double opacity_factor = 1.0;
 int particle_appearance = TEXTURE_TEXTURE;
 int interpolation_mode = INTERPOLATIONMODE_LINEAR;
-int system_mode = 1;
+int system_mode = 5;
 
 #define MAX_DISPLAY_TICKS 120
 

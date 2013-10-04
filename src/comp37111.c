@@ -116,6 +116,9 @@ void display(void)
 	if (last_system_mode != system_mode) {
 		last_system_mode = system_mode;
 		elapsed_ticks = 0;
+
+		collisionboxes_clear();
+		particles_clear();
 	}
 	switch (system_mode) {
 	default:
@@ -130,6 +133,9 @@ void display(void)
 		break;
 	case 4:
 		system_fireworks();
+		break;
+	case 5:
+		system_manyfountains();
 		break;
 	}
 
