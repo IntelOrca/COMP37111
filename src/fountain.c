@@ -43,6 +43,15 @@ void system_fountain()
 		fountain_emitter->emitter->size = interpolation_create_3(0, 32.0, 60 * 1, 28.0, 60 * 2, 16.0);
 		fountain_emitter->emitter->rotation = interpolation_create_2(0, 0.0, 60 * 2, 360.0);
 		fountain_emitter->emitter->property_updater = fountain_emitter_update;
+
+		{
+			CollisionBox *c = collisionbox_create();
+			c->x = -300;
+			c->y = -1200;
+			c->w = 600;
+			c->h = 700;
+			collisionboxes_add(c);
+		}
 	} else {
 		if (elapsed_ticks % (60 * 4) == 0) {
 			fountain_emitter->emitter->colour.r = interpolation_create_1((rand() % 4) * 0.25);

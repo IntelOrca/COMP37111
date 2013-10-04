@@ -8,44 +8,45 @@
 #include "collision.h"
 #include "particle.h"
 
-CollisionBox* collision_boxes[MAX_COLLISION_BOXES];
+CollisionBox *collisionboxes_head;
 
 void collisionboxes_clear()
 {
-	int i;
-	for (i = 0; i < MAX_COLLISION_BOXES; i++) {
-		if (collision_boxes[i] != NULL) {
-			collisionbox_dispose(collision_boxes[i]);
-			collision_boxes[i] = NULL;
-		}
+	CollisionBox **c = &collisionboxes_head, *current;
+	while (*c != NULL) {
+		current = *c;
+		c = &((*c)->next);
+		collisionbox_dispose(current);
 	}
+
+	particles_count = 0;
 }
 
 void collisionboxes_update()
 {
-	int i;
-	for (i = 0; i < MAX_COLLISION_BOXES; i++)
-		if (collision_boxes[i] != NULL)
-			collisionbox_update(collision_boxes[i]);
+	CollisionBox *c = collisionboxes_head;
+	while (c != NULL) {
+		collisionbox_update(c);
+		c = c->next;
+	}
 }
 
 void collisionboxes_draw()
 {
-	int i;
-	for (i = 0; i < MAX_COLLISION_BOXES; i++)
-		if (collision_boxes[i] != NULL)
-			collisionbox_draw(collision_boxes[i]);
+	CollisionBox *c = collisionboxes_head;
+	while (c != NULL) {
+		collisionbox_draw(c);
+		c = c->next;
+	}
 }
 
 void collisionboxes_add(CollisionBox *c)
 {
-	int i;
-	for (i = 0; i < MAX_COLLISION_BOXES; i++) {
-		if (collision_boxes[i] == NULL) {
-			collision_boxes[i] = c;
-			break;
-		}
+	CollisionBox **cc = &collisionboxes_head;
+	while (*cc != NULL) {
+		cc = &((*cc)->next);
 	}
+	*cc = c;
 }
 
 CollisionBox *collisionbox_create()

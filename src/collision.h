@@ -9,7 +9,9 @@
 
 #include "comp37111.h"
 
-typedef struct {
+typedef struct s_CollisionBox {
+	struct s_CollisionBox *next;
+
 	double x, y, w, h;
 	Colour colour;
 } CollisionBox;
@@ -24,7 +26,6 @@ void collisionbox_dispose(CollisionBox *c);
 void collisionbox_update(CollisionBox *c);
 void collisionbox_draw(CollisionBox *c);
 
-#define MAX_COLLISION_BOXES 100
-extern CollisionBox* collision_boxes[MAX_COLLISION_BOXES];
+extern CollisionBox* collisionboxes_head;
 
 #endif
