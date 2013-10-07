@@ -14,7 +14,7 @@
 
 #if WIN32
 	#include "../glut/glut.h"
-#elif MACOSX
+#elif __APPLE__
 	#include <GLUT/glut.h>
 #else
 	#include <GL/glut.h>
