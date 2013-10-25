@@ -13,14 +13,14 @@
 #include "menu.h"
 
 // Options
-double time_factor = 1.0;
-double frequency_factor = 1.0;
-double gravity_modifier = 1.0;
-double size_factor = 1.0;
-double opacity_factor = 1.0;
-int particle_appearance = TEXTURE_TEXTURE;
+double time_factor = 0.05;
+double frequency_factor = 32.0;
+double gravity_modifier = 0.7;
+double size_factor = 9.0;
+double opacity_factor = 0.1;
+int particle_appearance = 11;
 int interpolation_mode = INTERPOLATIONMODE_LINEAR;
-int system_mode = 5;
+int system_mode = 1;
 
 #define MAX_DISPLAY_TICKS 120
 
