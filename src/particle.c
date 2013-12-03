@@ -136,7 +136,7 @@ void particle_update(Particle *p)
 	p->velocity.z += (acceleration.z * time_factor);
 
 	// Update displacement
-	for (i = DISPLACEMENT_HISTORY_SIZE - 1; i >= 0; i--)
+	for (i = DISPLACEMENT_HISTORY_SIZE - 1; i > 0; i--)
 		p->displacement_history[i] = p->displacement_history[i - 1];
 	p->displacement_history[0] = p->displacement;
 
@@ -188,7 +188,7 @@ void particle_draw(Particle *p)
 				glVertex3d(p->displacement.x, p->displacement.y, p->displacement.z);
 				glVertex3d(p->displacement_history[0].x, p->displacement_history[0].y, p->displacement_history[0].z);
 
-				for (i = 0; i < min(p->time, DISPLACEMENT_HISTORY_SIZE) - 1; i++) {
+				for (i = 0; i < min((int)p->time, DISPLACEMENT_HISTORY_SIZE) - 1; i++) {
 					glVertex3d(p->displacement_history[i].x, p->displacement_history[i].y, p->displacement_history[i].z);
 					glVertex3d(p->displacement_history[i + 1].x, p->displacement_history[i + 1].y, p->displacement_history[i + 1].z);
 				}
