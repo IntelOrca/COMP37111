@@ -1,0 +1,1 @@
+gcc -O3 -fomit-frame-pointer -Wall -pipe -DFX -DXMESA -lGL -lGLU -lglut -lX11 -lm -g -o ./bin/comp37111 ./src/*.c
