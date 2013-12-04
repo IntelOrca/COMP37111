@@ -17,7 +17,7 @@
 #define TEXTURE_LINE (-2)
 #define TEXTURE_CIRCLE (-1)
 #define TEXTURE_TEXTURE 0
-#define DISPLACEMENT_HISTORY_SIZE 8
+#define DISPLACEMENT_HISTORY_SIZE 24
 
 typedef struct s_Particle {
 	// Linked list
@@ -40,6 +40,7 @@ typedef struct s_Particle {
 	Vector3 velocity;
 
 	Vector3 displacement_history[DISPLACEMENT_HISTORY_SIZE];
+	int history_count;
 } Particle;
 
 #define MAX_PARTICLES 2000000

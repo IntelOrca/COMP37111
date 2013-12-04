@@ -139,6 +139,9 @@ void particle_update(Particle *p)
 	for (i = DISPLACEMENT_HISTORY_SIZE - 1; i > 0; i--)
 		p->displacement_history[i] = p->displacement_history[i - 1];
 	p->displacement_history[0] = p->displacement;
+	if (p->displacement_history[0].x == 0 && p->displacement_history[0].y == 0)
+		i = 3;
+	p->history_count = min(p->history_count + 1, DISPLACEMENT_HISTORY_SIZE);
 
 	p->displacement.x += (p->velocity.x * time_factor);
 	p->displacement.y += (p->velocity.y * time_factor);
@@ -179,7 +182,7 @@ void particle_draw(Particle *p)
 		glEnd();
 		break;
 	case TEXTURE_LINE:
-		if (p->time == 0) {
+		if (p->history_count == 0) {
 			glBegin(GL_POINTS);
 				glVertex3d(p->displacement.x, p->displacement.y, p->displacement.z);
 			glEnd();
@@ -188,7 +191,7 @@ void particle_draw(Particle *p)
 				glVertex3d(p->displacement.x, p->displacement.y, p->displacement.z);
 				glVertex3d(p->displacement_history[0].x, p->displacement_history[0].y, p->displacement_history[0].z);
 
-				for (i = 0; i < min((int)p->time, DISPLACEMENT_HISTORY_SIZE) - 1; i++) {
+				for (i = 0; i < min(p->history_count, DISPLACEMENT_HISTORY_SIZE) - 1; i++) {
 					glVertex3d(p->displacement_history[i].x, p->displacement_history[i].y, p->displacement_history[i].z);
 					glVertex3d(p->displacement_history[i + 1].x, p->displacement_history[i + 1].y, p->displacement_history[i + 1].z);
 				}
