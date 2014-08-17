@@ -6,6 +6,7 @@
 
 #include <stdlib.h>
 #include "collision.h"
+#include "menu.h"
 #include "helpers.h"
 #include "particle.h"
 
@@ -61,6 +62,13 @@ static void init()
 	Particle *p;
 	CollisionBox *c;
 
+	time_factor = 0.6;
+	frequency_factor = 2.0;
+	gravity_modifier = 1.0;
+	size_factor = 1.0;
+	opacity_factor = 1.0;
+	particle_appearance = 0;
+
 	p = particle_create();
 	snow_emitter = p;
 	p->acceleration.x = interpolation_create_2(
@@ -91,26 +99,4 @@ static void init()
 	p->emitter->property_updater = snow_emitter_next;
 
 	particles_add(p);
-
-	/*
-	p = particle_create();
-	p->displacement.x = -400;
-	p->displacement.y = 400;
-	p->lifetime = INFINITE_LIFETIME;
-	p->emitter = emitter_create();
-	p->emitter->lifetime = 200;
-	p->emitter->frequency = 32;
-	p->emitter->velocity.y = -30.0;
-	p->emitter->acceleration.y = 0.5;
-	p->emitter->colour = get_colour(0.1, 1.0, 1.0, 1.0);
-	p->emitter->property_updater = main_emitter_pupdate_b;
-	particles_add(p);
-
-	c = collisionbox_create();
-	c->x = -100;
-	c->y = 00;
-	c->w = 200;
-	c->h = 200;
-	collisionboxes_add(c);
-	*/
 }

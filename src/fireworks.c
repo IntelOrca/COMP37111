@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include "collision.h"
 #include "helpers.h"
+#include "menu.h"
 #include "particle.h"
 
 static Particle *firework_emitter;
@@ -17,6 +18,13 @@ static void firework_exploision_emitter_update(Emitter *e);
 void system_fireworks()
 {
 	if (elapsed_ticks == 0) {
+		time_factor = 0.5;
+		frequency_factor = 3.0;
+		gravity_modifier = 0.8;
+		size_factor = 10.0;
+		opacity_factor = 0.8;
+		particle_appearance = 20;
+
 		// Firework emitter
 		firework_emitter = particle_create();
 		particles_add(firework_emitter);
@@ -56,7 +64,7 @@ void system_fireworks()
 		firework_emitter->emitter->emitter->emitter->frequency = interpolation_create_1(4.0);
 		firework_emitter->emitter->emitter->emitter->split = 1;
 		firework_emitter->emitter->emitter->emitter->acceleration.y = interpolation_create_1(0.5);
-		firework_emitter->emitter->emitter->emitter->colour.a = interpolation_create_1(1.0);
+		firework_emitter->emitter->emitter->emitter->colour.a = interpolation_create_3(0, 1.0, 45, 1.0, 60, 0);
 		firework_emitter->emitter->emitter->emitter->colour.r = interpolation_create_1(0.0);
 		firework_emitter->emitter->emitter->emitter->colour.g = interpolation_create_1(1.0);
 		firework_emitter->emitter->emitter->emitter->colour.b = interpolation_create_1(0.0);
@@ -65,15 +73,6 @@ void system_fireworks()
 	} else {
 
 	}
-}
-
-static void init()
-{
-	/*
-	Particle *p;
-
-
-	*/
 }
 
 static Colour random_colours[] = {

@@ -17,6 +17,13 @@ void spiral_emitter_update(Emitter *e);
 void system_spiral()
 {
 	if (elapsed_ticks == 0) {
+		time_factor = 0.5;
+		frequency_factor = 4.0;
+		gravity_modifier = 0;
+		size_factor = 2.0;
+		opacity_factor = 1;
+		particle_appearance = 25;
+
 		spiral_emitter = particle_create();
 		particles_add(spiral_emitter);
 

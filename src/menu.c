@@ -13,12 +13,12 @@
 #include "menu.h"
 
 // Options
-double time_factor = 0.05;
-double frequency_factor = 32.0;
-double gravity_modifier = 0.7;
-double size_factor = 9.0;
-double opacity_factor = 0.1;
-int particle_appearance = 11;
+double time_factor;
+double frequency_factor;
+double gravity_modifier;
+double size_factor;
+double opacity_factor;
+int particle_appearance;
 int interpolation_mode = INTERPOLATIONMODE_LINEAR;
 int system_mode = 1;
 

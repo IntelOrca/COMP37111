@@ -23,6 +23,13 @@ void system_manyfountains()
 	if (elapsed_ticks == 0) {
 		CollisionBox *c;
 
+		time_factor = 0.5;
+		frequency_factor = 6.0;
+		gravity_modifier = 0.6;
+		size_factor = 1.0;
+		opacity_factor = 0.8;
+		particle_appearance = 17;
+
 		spread = interpolation_create_3(
 			0.0, 4.0,
 			120.0, 22.5,

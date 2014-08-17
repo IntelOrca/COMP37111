@@ -18,6 +18,13 @@ void fountain_emitter_update(Emitter *e);
 void system_fountain()
 {
 	if (elapsed_ticks == 0) {
+		time_factor = 0.05;
+		frequency_factor = 32.0;
+		gravity_modifier = 0.7;
+		size_factor = 9.0;
+		opacity_factor = 0.1;
+		particle_appearance = 11;
+
 		spread = interpolation_create_3(
 			0.0, 4.0,
 			120.0, 22.5,

@@ -1,1 +1,1 @@
-gcc -O2 /System/Library/Frameworks/GLUT.framework/GLUT /System/Library/Frameworks/OpenGL.framework/OpenGL src/*.c -o bin/COMP37111.app; cd bin; ./COMP37111.app
+gcc -O2 --Wdeprecated-declarations /System/Library/Frameworks/GLUT.framework/GLUT /System/Library/Frameworks/OpenGL.framework/OpenGL src/*.c -o bin/COMP37111.app; cd bin; ./COMP37111.app
